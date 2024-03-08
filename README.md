@@ -328,7 +328,7 @@ Table 9 reports the weight misalignment metric (WMS) computed on CNN models trai
 bash scripts/table1_train_controlled_randomness.sh configs/cifar100/cnn-large.ini
 ```
 
-####  (OPTIONAL) Experiment 5: Causes of misalignment on CIFAR100
+####  (OPTIONAL) Experiment 5: Causes of misalignment on Purchase100
 Table 10 reports the weight misalignment metric (WMS) computed on MLP models trained on Purchase100. To reproduce these results, train the models using the command below, then compute the WMS using similar commands as in Experiment 1 (making sure to use the correct config file, given below):
 
 ```
