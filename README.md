@@ -1,7 +1,7 @@
 # Investigating the Effect of Misalignment on Membership Privacy in the White-box Setting
 
 ## Description
-Source code for reproducing the main results of the paper. This includes modular code for training shadow models and membership inference attacks using different type of features, implementations of re-alignment techniques, and scripts for running the experiments. All the code is ours except for the code implementing ResNet, located in `src/resnet.py`, which is adapted from https://github.com/weiaicunzai/pytorch-cifar100.
+Source code for reproducing the main results of the [paper](https://arxiv.org/abs/2306.05093) (to appear in PoPETs 2024). This includes modular code for training shadow models and membership inference attacks using different type of features, implementations of re-alignment techniques, and scripts for running the experiments. All the code is ours except for the code implementing ResNet, located in `src/resnet.py`, which is adapted from https://github.com/weiaicunzai/pytorch-cifar100.
 
 ## Basic Requirements
 
