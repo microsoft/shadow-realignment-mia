@@ -14,12 +14,12 @@ $ du -h --max-depth=1 data
 Breakdown of the `experiments` directory's (where experiments are saved) storage requirements:
 ```
 $ du -h --max-depth=1 experiments
-34M 	experiments/celeba
-16M 	experiments/celeba-old
-1.2G	experiments/purchase100
-3.3G	experiments/texas100
-2.6G	experiments/tiny-imagenet-200
-116M	experiments/cifar100
-16G 	experiments/cifar10
-23G 	experiments
+34M     experiments/celeba
+16M     experiments/celeba-old
+1.2G    experiments/purchase100
+3.3G    experiments/texas100
+802M    experiments/tiny-imagenet-200
+116M    experiments/cifar100
+16G     experiments/cifar10
+21G     experiments
 ```
