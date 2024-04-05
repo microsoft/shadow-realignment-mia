@@ -538,9 +538,35 @@ rm -rf shadow-realignment-mia
 ```
 
 ## Limitations
-The artifact does not include the experiments for training models with differential privacy (DP, Appendix A.9), because the library we used for DP training (opacus) is incompatible with our version of CUDA and pytorch; changing the pytorch version enables DP training but leads to a segmentation error when running other scripts. We were not able to find a combination of versions for CUDA, pytorch, and opacus that would allow to run all the scripts, error-free, on our hardware, so we opted to release an environment that works for all the other experiments. 
+The artifact does not include the experiments for training models with differential privacy (DP, Appendix A.9), because the library we used for DP-SGD training (`opacus`) is incompatible with our version of CUDA, `python`, and `torch`; changing the pytorch version enables DP training but leads to a segmentation error when running other scripts. We were not able to find a combination of versions for CUDA, `python`, `torch`, and `opacus` that would allow to run all the scripts, error-free, on our hardware, so we opted to release an environment (`wb-mia`) that works for all the other experiments. 
 
-We however provide the model config file for VGG16 architecture trained with regularisation defenses, `configs/cifar10/vgg16-regularized_wd003_robust.ini`. You can train VGG16 models using commands similar to Experiment 9 to check that MIAs achieve close to random performance against this model.
+However, we provide instructions for installing a new environment where models can be trained with DP-SGD.
+
+```bash
+conda create --name train-dp python=3.9.18
+conda activate train-dp
+pip install numpy==1.22.4 scikit-learn==1.3.2 scipy==1.11.4 configargparse tqdm hungarian_algorithm matplotlib jupyter ipykernel pandas
+pip install opacus==1.0.0
+pip install torchcsprng==0.2.0+cu111 torch==1.8.0+cu111  torchvision==0.9.0 -f https://download.pytorch.org/whl/cu111/torch_stable.html
+```
+
+Uncomment the lines below from `src/train_shadow_model.py`:
+
+```
+from opacus import PrivacyEngine
+from opacus.validators import ModuleValidator
+from opacus.utils.batch_memory_manager import BatchMemoryManager
+```
+
+Run the following script to train a VGG model using DP-SGD. 
+
+```
+python vgg_shadow_modeling_attack.py --attacker_access=target_dataset  --which_model=target --model_config=configs/cifar10/vgg16-dp.ini
+```
+
+To run the attack, you can use commands similar to Experiment 9 but you'll have to deactivate the `train-dp` environment, activate the `wb-mia` environment, and comment the lines above (since `opacus` isn't installed on `wb-mia`).
+
+We further provide the model config file for VGG16 architecture trained with regularisation defenses, `configs/cifar10/vgg16-regularized_wd003_robust.ini`. You can train VGG16 models using commands similar to Experiment 9 to check that MIAs achieve close to random performance against this model.
 
 ## Notes on Reusability
 We hope that future work will extend the re-alignment techniques (`src/align.py`) to other networks and symmetries along the lines described in our paper.
