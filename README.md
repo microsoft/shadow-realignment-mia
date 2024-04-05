@@ -515,6 +515,10 @@ The results of this experiment will be saved in `experiments/cifar10/attack/cnn-
 
 Model utility (Table 3): Run `notebooks/model_utility.ipynb`.
 
+#### (OPTIONAL) Defenses
+
+We provide the model config file for VGG16 architecture trained with regularisation defenses, `configs/cifar10/vgg16-regularized_wd003_robust.ini`. You can train VGG16 models using commands similar to Experiment 9 to check that MIAs achieve close to random performance against this model.
+
 ## Cleaning up
 
 Remove the datasets and experiments using the following commands:
@@ -565,8 +569,6 @@ python vgg_shadow_modeling_attack.py --attacker_access=target_dataset  --which_m
 ```
 
 To run the attack, you can use commands similar to Experiment 9 but you'll have to deactivate the `train-dp` environment, activate the `wb-mia` environment, and comment the lines above (since `opacus` isn't installed on `wb-mia`).
-
-We further provide the model config file for VGG16 architecture trained with regularisation defenses, `configs/cifar10/vgg16-regularized_wd003_robust.ini`. You can train VGG16 models using commands similar to Experiment 9 to check that MIAs achieve close to random performance against this model.
 
 ## Notes on Reusability
 We hope that future work will extend the re-alignment techniques (`src/align.py`) to other networks and symmetries along the lines described in our paper.
