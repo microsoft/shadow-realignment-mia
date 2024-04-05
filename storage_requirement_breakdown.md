@@ -1,8 +1,9 @@
+Breakdown of the `data` directory's (where datasets are downloaded) storage requirements:
+
 ```
 $ du -h --max-depth=1 data
 1.2G	data/purchase-100
 3.1G	data/celeba
-4.0K	data/.ipynb_checkpoints
 178M	data/cifar-10-batches-py
 3.9G	data/texas-100
 178M	data/cifar-100-python
@@ -10,6 +11,7 @@ $ du -h --max-depth=1 data
 9.4G	data
 ```
 
+Breakdown of the `experiments` directory's (where experiments are saved) storage requirements:
 ```
 $ du -h --max-depth=1 experiments
 34M 	experiments/celeba
