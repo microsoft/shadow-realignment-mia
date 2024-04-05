@@ -1,4 +1,7 @@
 import copy
+#from opacus import PrivacyEngine
+#from opacus.validators import ModuleValidator
+#from opacus.utils.batch_memory_manager import BatchMemoryManager
 import os
 import pickle
 import time
@@ -258,7 +261,7 @@ def train_dp_shadow_model(exp, membership_idxs, train, val, test, seeds, device,
             target_delta=args.delta,
             max_grad_norm=args.max_grad_norm
             )
-    print(f"Using sigma={optimizer.noise_multiplier} and C={MAX_GRAD_NORM}")
+    print(f"Using sigma={optimizer.noise_multiplier} and C={args.max_grad_norm}")
 
     logger = Logger(exp, args.print_every, save_path_prefix)
     best_val_acc = 0
