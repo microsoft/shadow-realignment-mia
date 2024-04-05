@@ -515,6 +515,28 @@ The results of this experiment will be saved in `experiments/cifar10/attack/cnn-
 
 Model utility (Table 3): Run `notebooks/model_utility.ipynb`.
 
+## Cleaning up
+
+Remove the datasets and experiments using the following commands:
+
+```bash
+rm -r data
+rm -r experiments
+```
+
+If you also want to remove the plots, run: 
+
+```bash
+rm -r notebooks/plots
+```
+
+To remove the repository, run:
+
+```bash
+cd ..
+rm -rf shadow-realignment-mia
+```
+
 ## Limitations
 The artifact does not include the experiments for training models with differential privacy (DP, Appendix A.9), because the library we used for DP training (opacus) is incompatible with our version of CUDA and pytorch; changing the pytorch version enables DP training but leads to a segmentation error when running other scripts. We were not able to find a combination of versions for CUDA, pytorch, and opacus that would allow to run all the scripts, error-free, on our hardware, so we opted to release an environment that works for all the other experiments. 
 
