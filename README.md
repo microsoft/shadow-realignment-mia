@@ -8,7 +8,7 @@ Source code for reproducing the main results of the [paper](https://arxiv.org/ab
 ### Hardware Requirements
 A Linux machine with one or more GPUs having Nvidia CUDA drivers >= 10.2 installed.
 
-Estimated storage for all the datasets and experiments is 33G. 
+Estimated storage for all the datasets and experiments is 30G. 
 
 ### Software Requirements
 
@@ -56,7 +56,7 @@ Unzip `img_align_celeba.zip` into the directory. This should create a new sub-di
 ### Estimated Time and Storage Consumption
 It will take up to 4 weeks to run all the experiments using one GPU, however if the machine has multiple GPUs it is possible to run the scripts in parallel on different GPUs. In this case, the running time will go down proportionally.
 
-The expected storage requirement for the datasets and experiments is 33G: we provide in `storage_requirement_breakdown.md` a breakdown for the `data` and `experiments` directories. 
+The expected storage requirement for the datasets and experiments is 30G. We provide in `storage_requirement_breakdown.md` a breakdown for the `data` and `experiments` directories. 
 
 ## Environment
 
@@ -174,7 +174,7 @@ These results take a long time to run (up to 2-3 weeks), since we run 10 repetit
 #### Experiment 1: Causes of shadow model misalignment
 The experiment consists in training several models with controlled randomness and training data, then measuring the misalignment between one of the models (referred to as the target model) and the other models (referred to as the shadow models) using three different metrics. More specifically, computing each line of Table 1 requires training one target model and several shadow models using the same conditions, except for one or more factors we control for. For instance, the results in line 2 of Table 1 (Different weight initialisation) are computed from 1 target model and 5 shadow models trained in the same way: same dataset, batch ordering and dropout sampling, except for the use of a different weight initialisation.
 
-The script below will train all the models necessary to generate Table 1, Table 13 (Appendix), Figures 1 and 3-5. Estimated running time is up to 1-2 days, the models will be saved to `experiments/cifar10/controlled_randomness/cnn-large/dsize-12500`, and the estimated disk space is 120M.
+The script below will train all the models necessary to generate Table 1, Table 13 (Appendix), Figures 1 and 3-5. Estimated running time is up to 1-2 days, the models will be saved to `experiments/cifar10/controlled_randomness/cnn-large/dsize-12500`, and the estimated storage required is 120M.
 
 ```
 bash scripts/table1_train_controlled_randomness.sh configs/cifar10/cnn-large.ini
@@ -261,7 +261,7 @@ _Note:_ For re-alignment techniques (A5) and (A6) we set `--alignment_method` to
 #### Experiment 3: In-depth study of white-box MIA performance across features types and layers
 This experiment consists in (1) training the target and shadow models and (2) evaluating MIAs using different types of features. The features can be extracted from the target model (scenario (S1) in the paper), from shadow models trained using the same weight initialisation as the target model (S2), or from shadow models trained using a different weight initialisation (S3). Furthermore, the features can be of different types and extracted from different layers.
 
-The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/shadow_models`, `experiments/cifar10/attack/cnn-large/target_models`, and `experiments/cifar10/attack/cnn-large/attack_results` of size 863M, 28M, and 119M, respectively.
+The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/shadow_models`, `experiments/cifar10/attack/cnn-large/target_models`, and `experiments/cifar10/attack/cnn-large/attack_results` and the estimated storage required is 863M, 28M, and 119M, respectively.
 
 Run the commands below to train:
 
@@ -331,7 +331,7 @@ Table 9 reports the weight misalignment metric (WMS) computed on CNN models trai
 bash scripts/table1_train_controlled_randomness.sh configs/cifar100/cnn-large.ini
 ```
 
-The results of this experiment will be saved in `experiments/cifar100/controlled_randomness/cnn-large/dsize-12500` of size 116M.
+The results of this experiment will be saved in `experiments/cifar100/controlled_randomness/cnn-large/dsize-12500` and the estimated storage required is 116M.
 
 ####  (OPTIONAL) Experiment 5: Causes of misalignment on Purchase100
 Table 10 reports the weight misalignment metric (WMS) computed on MLP models trained on Purchase100. To reproduce these results, train the models using the command below, then compute the WMS using similar commands as in Experiment 1 (making sure to use the correct config file, given below):
@@ -340,20 +340,23 @@ Table 10 reports the weight misalignment metric (WMS) computed on MLP models tra
 bash scripts/table1_train_controlled_randomness.sh configs/purchase100/controlled_randomness/mlp_small_dropout.ini
 ```
 
-The results of this experiment will be saved in `experiments/purchase100/controlled_randomness/generic-mlp-dropout_600,512,256,128,100/dsize-20000` of size 92M.
+The results of this experiment will be saved in `experiments/purchase100/controlled_randomness/generic-mlp-dropout_600,512,256,128,100/dsize-20000` and the estimated storage required is 92M.
 
 ####  (OPTIONAL) Experiment 6: Causes of misalignment on CIFAR10 using different training set sizes (Table 11 and Figure 6)
 Table 11 reports the weight misalignment metric (WMS) computed on CNN models trained on varying number of samples of CIFAR10: 12500 (taken from Experiment 1), 25000, and 50000. We provide instructions for obtaining the last two:
-
 
 ```
 bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.sh 25000
 ```
 
+The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large/dsize-25000` and the estimated storage required is 60M.
+
 Setting the second argument to 0 amounts to using the entire dataset (here, 50000 records).
 ```
 bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.sh 0
 ```
+
+The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large/dsize-50000` and the estimated storage required is 78M.
 
 Once the models are trained, you can use commands similar to the ones provided in Experiment 1 to compute the WMS. In this case, it suffices to append `--experiment=compute_metrics` to every command in `./scripts/train_controlled_randomness.sh`.
 
@@ -374,16 +377,22 @@ The next three rows are computed from models trained with a learning rate of 0.0
 bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large-lr-0.001_e-5.sh 0
 ```
 
+The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large-lr-0.001_e-5` and the estimated storage required is 48M.
+
 The next three rows are computed from models trained with a learning rate of 0.001 and early stopping patience of 10.
 ```
 bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large-lr-0.001_e-10.sh 0
 ```
+
+The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large-lr-0.001_e-10` and the estimated storage required is 48M.
 
 ####  (OPTIONAL) Experiment 8: Misalignment in models trained on different distributions from the CelebA dataset (Table 14 and Figure 2)
 
 ```
 bash scripts/celeba_train_controlled_randomness.sh
 ```
+
+The results of this experiment will be saved in `experiments/celeba` and `experiments/celeba-old` and the estimated storage required is 34M and 16M, respectively.
 
 To compute the weight misalignment scores reported in Table 14, run the same commands as in the script after adding `--experiment=compute_metrics` to them.
 
@@ -410,6 +419,8 @@ Run the MIAs using the script below:
 bash scripts/run_shadow_modeling_attack_vgg16.sh
 ```
 
+The results of this experiment will be saved in `experiments/cifar10/attack/vgg16/target_models`, `experiments/cifar10/attack/vgg16/shadow_models`, and `experiments/cifar10/attack/vgg16/attack_results`  and the estimated storage required is 645M, 6.4G and 54M, respectively.
+
 Aggregate the MIA results using `notebooks/results_shadow_modeling_attack_vgg16.ipynb`
 
 #### (OPTIONAL) Experiment 10: White-box MIAs against MLP models trained on Texas100 (Table 8)
@@ -433,6 +444,8 @@ Run the MIAs using the script below:
 bash scripts/run_shadow_modeling_attack_texas100.sh
 ```
 
+The results of this experiment will be saved in `experiments/texas100/attack/generic-mlp-dropout_6169,1024,512,256,128,100/target_models`, `experiments/texas100/attack/generic-mlp-dropout_6169,1024,512,256,128,100/shadow_models`, and `experiments/texas100/attack/generic-mlp-dropout_6169,1024,512,256,128,100/attack_results` and the estimated storage required is 270M, 2.9G and 43M, respectively.
+
 Aggregate the MIA results using `notebooks/results_shadow_modeling_attack_texas100.ipynb`
 
 #### (OPTIONAL) Experiment 11: White-box MIAs against MLP models trained on Purchase100 (Table 20)
@@ -455,6 +468,8 @@ Run the MIAs using the script below:
 ```
 bash scripts/run_shadow_modeling_attack_purchase100.sh
 ```
+
+The results of this experiment will be saved in `experiments/purchase100/attack/generic-mlp-dropout_600,512,256,128,100/target_models`, `experiments/purchase100/attack/generic-mlp-dropout_600,512,256,128,100/shadow_models`, and `experiments/purchase100/attack/generic-mlp-dropout_600,512,256,128,100/attack_results`  and the estimated storage required is 23M, 244M and 34M, respectively.
 
 Aggregate the MIA results using `notebooks/results_shadow_modeling_attack_texas100.ipynb`
 
@@ -480,15 +495,23 @@ Run the MIAs using the script below:
 bash scripts/run_shadow_modeling_attack_resnet18.sh
 ```
 
+The results of this experiment will be saved in `experiments/tiny-imagenet-200/attack/resnet18/target_models`, `experiments/tiny-imagenet-200/attack/resnet18/shadow_models`, and `experiments/tiny-imagenet-200/attack/resnet18/attack_results`  and the estimated storage required is 264M, 527M and 12M, respectively.
+
 Aggregate the MIA results using `notebooks/results_shadow_modeling_attack_resnet18.ipynb`
 
 #### (OPTIONAL) Experiment 13: Other baselines (Tables 16, 17, and 18) and model utility (Table 3)
 
-Table 16: Instructions can be found in `scripts/run_stolen_memories.sh`. 
+Table 16: Instructions can be found in `scripts/run_stolen_memories.sh`.
 
-Table 17: Instructions can be found in `scripts/run_shadow_modeling_attack_set_based.sh`
+The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/stolen_memories` and the estimated storage required is 287M.
+
+Table 17: Instructions can be found in `scripts/run_shadow_modeling_attack_set_based.sh`.
+
+The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/attack_results/aa-shadow_dataset-set-based`, `experiments/texas100/attack/generic-mlp-dropout_6169,1024,512,256,128,100/attack_results/aa-shadow_dataset-set-based`, and `experiments/purchase100/attack/generic-mlp-dropout_600,512,256,128,100/attack_results/aa-shadow_dataset-set-based`  and the estimated storage required is 948K, 972K and 1.1M, respectively.
 
 Table 18: Instructions can be found in `scripts/run_lira_attack.sh`. The results can be aggregated in `notebooks/results_lira_attack.sh`.
+
+The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/lira`, `experiments/texas100/attack/generic-mlp-dropout_6169,1024,512,256,128,100/lira`, and `experiments/purchase100/attack/generic-mlp-dropout_600,512,256,128,100/lira`  and the estimated storage required is 92K, 92K and 92K, respectively.
 
 Model utility (Table 3): Run `notebooks/model_utility.ipynb`.
 
