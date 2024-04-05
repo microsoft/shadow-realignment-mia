@@ -269,24 +269,28 @@ def train_dp_shadow_model(exp, membership_idxs, train, val, test, seeds, device,
     it = 1
     for epoch in range(args.max_num_epochs + 1):
         model.train()
-        train_iter = iter(train_loader)
-        # Do not train for epoch 0, just evaluate the model.
-        while True and epoch > 0:
-            optimizer.zero_grad()
-            try:
-                batch = next(train_iter)
-            except StopIteration:
-                break
-            inputs = batch[0].to(device)
-            labels = batch[1].to(device)
-            outputs = model(inputs)
-            loss = criterion(outputs, labels)
-            
-            logger.log_loss(loss.item(), epoch, it)
+        with BatchMemoryManager(data_loader=train_loader,
+                max_physical_batch_size=128,
+                optimizer=optimizer) as memory_safe_data_loader:
+            train_iter = iter(train_loader)
+            # Do not train for epoch 0, just evaluate the model.
+            while True and epoch > 0:
+                optimizer.zero_grad()
+                try:
+                    batch = next(train_iter)
+                except StopIteration:
+                    break
 
-            loss.backward()
-            optimizer.step()
-            it += 1
+                inputs = batch[0].to(device)
+                labels = batch[1].to(device)
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
+
+                logger.log_loss(loss.item(), epoch, it)
+
+                loss.backward()
+                optimizer.step()
+                it += 1
 
         # Evaluate the model's accuracy on the training and validation datasets.
         start_time = time.time()
