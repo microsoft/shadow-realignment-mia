@@ -22,10 +22,7 @@ from src.align import (GreedyMatching,
 from src.train_shadow_model import (train_shadow_model,
         train_dp_shadow_model)
 from src.train_meta_model import train_meta_model
-from src.train_proxy_model import (train_proxy_model, 
-        linear_approximation, 
-        bayes_predictor, 
-        extract_bayes_features)
+from src.train_proxy_model import train_proxy_model
 from src.resnet import ResNet
 
 
