@@ -8,7 +8,7 @@ Source code for reproducing the main results of the [paper](https://arxiv.org/ab
 ### Hardware Requirements
 A Linux machine with one or more GPUs having Nvidia CUDA drivers >= 10.2 installed.
 
-Estimated storage for all the datasets and experiments is 35G. 
+Estimated storage for all the datasets and experiments is 33G. 
 
 ### Software Requirements
 
@@ -55,6 +55,8 @@ Unzip `img_align_celeba.zip` into the directory. This should create a new sub-di
 
 ### Estimated Time and Storage Consumption
 It will take up to 4 weeks to run all the experiments using one GPU, however if the machine has multiple GPUs it is possible to run the scripts in parallel on different GPUs. In this case, the running time will go down proportionally.
+
+The expected storage requirement for the datasets and experiments is 33G: we provide in `storage_requirement_breakdown.md` a breakdown for the `data` and `experiments` directories. 
 
 ## Environment
 
@@ -172,7 +174,7 @@ These results take a long time to run (up to 2-3 weeks), since we run 10 repetit
 #### Experiment 1: Causes of shadow model misalignment
 The experiment consists in training several models with controlled randomness and training data, then measuring the misalignment between one of the models (referred to as the target model) and the other models (referred to as the shadow models) using three different metrics. More specifically, computing each line of Table 1 requires training one target model and several shadow models using the same conditions, except for one or more factors we control for. For instance, the results in line 2 of Table 1 (Different weight initialisation) are computed from 1 target model and 5 shadow models trained in the same way: same dataset, batch ordering and dropout sampling, except for the use of a different weight initialisation.
 
-The script below will train all the models necessary to generate Table 1, Table 13 (Appendix), Figures 1 and 3-5. Estimated running time is up to 1-2 days and estimated disk space is 120M.
+The script below will train all the models necessary to generate Table 1, Table 13 (Appendix), Figures 1 and 3-5. Estimated running time is up to 1-2 days, the models will be saved to `experiments/cifar10/controlled_randomness/cnn-large/dsize-12500`, and the estimated disk space is 120M.
 
 ```
 bash scripts/table1_train_controlled_randomness.sh configs/cifar10/cnn-large.ini
@@ -206,7 +208,6 @@ From this output we can extract line 1 of Table 1 (Random permutation), line 2 o
 To obtain line 3-9 of Tables 1, 13A and 13B, run every command listed in `scripts/table1_train_controlled_randomness.sh` after adding to it `--experiment=compute_metrics`, like above.
 
 To generate Figure 1 and Figures 3-5, run the following notebooks: ```notebooks/figure1.ipynb``` and ```notebooks/figures3-5.ipynb```.
-
 
 #### Experiment 2: Re-alignment techniques can reduce misalignment
 Using the models trained in the previous experiment, we now compute the misalignment metrics between the target model and re-aligned shadow models. We apply several re-alignment techniques to shadow models trained by the classical adversary (i.e., which were trained on a disjoint dataset and using different weight initialisation, batch ordering and dropout sampling w.r.t. the target model). Our results,  showing that re-alignment techniques can reduce the misalignment, are reported in Table 2 (weight misalignment metric), Table 15A (activation misalignment metric), and Table 15B (correlation between activations). We describe below how to generate the results.
@@ -255,10 +256,12 @@ Line (A6) of Tables 2, 15A and 15B can be obtained by running:
 python train_controlled_randomness.py   --model_config=configs/cifar10/cnn-large.ini   --varying=seed_all_dataset_disjoint   --dataset_size=12500  --experiment=compute_metrics  --alignment=True    --alignment_method=bottom_up_correlation_matching
 ```
 
-_Note:_ For re-alignment techniques (A5) and (A6) we set `--alignment_method` to `bottom_up_activation_matching` and `bottom_up_correlation_matching`, respectively, while these methods are referred to in the paper as "Activation-based re-alignment" and "Correlation-based re-alignment". In the paper, we explain in Sec. 5 that for these re-alignment techniques, the order in which the optimal permutations are computed doesn't matter, i.e., top-down and bottom-up are equivalent. In the code however, we performed--without loss of generalisation--them in bottom-up order.
+_Note:_ For re-alignment techniques (A5) and (A6) we set `--alignment_method` to `bottom_up_activation_matching` and `bottom_up_correlation_matching`, respectively, while these methods are referred to in the paper as "Activation-based re-alignment" and "Correlation-based re-alignment". In the paper, we explain in Sec. 5 that for these re-alignment techniques, the order in which the optimal permutations are computed doesn't matter, i.e., top-down and bottom-up are equivalent. In the code however, we performed them--without loss of generalisation--in bottom-up order.
 
 #### Experiment 3: In-depth study of white-box MIA performance across features types and layers
 This experiment consists in (1) training the target and shadow models and (2) evaluating MIAs using different types of features. The features can be extracted from the target model (scenario (S1) in the paper), from shadow models trained using the same weight initialisation as the target model (S2), or from shadow models trained using a different weight initialisation (S3). Furthermore, the features can be of different types and extracted from different layers.
+
+The results of this experiment will be saved in `experiments/cifar10/attack/cnn-large/shadow_models`, `experiments/cifar10/attack/cnn-large/target_models`, and `experiments/cifar10/attack/cnn-large/attack_results` of size 863M, 28M, and 119M, respectively.
 
 Run the commands below to train:
 
@@ -328,12 +331,16 @@ Table 9 reports the weight misalignment metric (WMS) computed on CNN models trai
 bash scripts/table1_train_controlled_randomness.sh configs/cifar100/cnn-large.ini
 ```
 
+The results of this experiment will be saved in `experiments/cifar100/controlled_randomness/cnn-large/dsize-12500` of size 116M.
+
 ####  (OPTIONAL) Experiment 5: Causes of misalignment on Purchase100
 Table 10 reports the weight misalignment metric (WMS) computed on MLP models trained on Purchase100. To reproduce these results, train the models using the command below, then compute the WMS using similar commands as in Experiment 1 (making sure to use the correct config file, given below):
 
 ```
 bash scripts/table1_train_controlled_randomness.sh configs/purchase100/controlled_randomness/mlp_small_dropout.ini
 ```
+
+The results of this experiment will be saved in `experiments/purchase100/controlled_randomness/generic-mlp-dropout_600,512,256,128,100/dsize-20000` of size 92M.
 
 ####  (OPTIONAL) Experiment 6: Causes of misalignment on CIFAR10 using different training set sizes (Table 11 and Figure 6)
 Table 11 reports the weight misalignment metric (WMS) computed on CNN models trained on varying number of samples of CIFAR10: 12500 (taken from Experiment 1), 25000, and 50000. We provide instructions for obtaining the last two:
