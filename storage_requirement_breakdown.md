@@ -16,10 +16,10 @@ Breakdown of the `experiments` directory's (where experiments are saved) storage
 $ du -h --max-depth=1 experiments
 34M     experiments/celeba
 16M     experiments/celeba-old
-1.2G    experiments/purchase100
+391M    experiments/purchase100
 3.3G    experiments/texas100
 802M    experiments/tiny-imagenet-200
 116M    experiments/cifar100
 16G     experiments/cifar10
-21G     experiments
+20G     experiments
 ```
