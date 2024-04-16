@@ -21,8 +21,8 @@ We also recommend installing and using `screen` so that (1) scripts can be left 
 #### Datasets
 We used six datasets in the paper: four small-scale datasets: CIFAR10, CIFAR100, Texas100, and Purchase100 and two large-scale datasets, CelebA, TinyImagenet-200, and are only used in secondary experiments. We provide instructions for downloading all of them, and flag as OPTIONAL the datasets that are used in secondary experiments.
 
-- CIFAR10 and CIFAR100 will be downloaded automatically when attempting to run code (such as our scripts below) that trains shadow models on these datasets.
-- Texas100 and Purchase100: Download them from https://www.comp.nus.edu.sg/~reza/files/datasets.html. Unzip their content into two folders (which you have to create), 'data/texas-100' and 'data/purchase-100'. Then run the following notebooks, `notebooks/texas.ipynb` and `notebooks/purchase.ipynb`, to process the datasets and save them to `.pickle` format (which allows for faster loading). The notebooks should be run _after_ having set up the environment (as described in the next section).
+- CIFAR10 and CIFAR100 will be downloaded automatically when attempting to run code that trains shadow models on these datasets, such as our scripts below.
+- Texas100 and Purchase100: Download them from https://www.comp.nus.edu.sg/~reza/files/datasets.html. Unzip their content into two folders (which you have to create), `data/texas-100` and `data/purchase-100`. Then run the following notebooks, `notebooks/texas.ipynb` and `notebooks/purchase.ipynb`, to process the datasets and save them to `.pickle` format (which allows for faster loading). The notebooks should be run _after_ having set up the environment (as described in the next section).
 
 To run the notebooks, you should create a jupyter notebook instance on the server, from the current directory, e.g.:
 
