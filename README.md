@@ -346,14 +346,14 @@ The results of this experiment will be saved in `experiments/purchase100/control
 Table 11 reports the weight misalignment metric (WMS) computed on CNN models trained on varying number of samples of CIFAR10: 12500 (taken from Experiment 1), 25000, and 50000. We provide instructions for obtaining the last two:
 
 ```
-bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.sh 25000
+bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.ini 25000
 ```
 
 The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large/dsize-25000` and the estimated storage required is 60M.
 
 Setting the second argument to 0 amounts to using the entire dataset (here, 50000 records).
 ```
-bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.sh 0
+bash scripts/train_controlled_randomness.sh configs/cifar10/cnn-large.ini 0
 ```
 
 The results of this experiment will be saved in `experiments/cifar10/controlled_randomness/cnn-large/dsize-50000` and the estimated storage required is 78M.
