@@ -167,7 +167,7 @@ We provide in Experiment 2 instructions for reproducing Table 2 and Table 15 (Ap
 #### Main Result 3: In-depth study of white-box MIA performance across features types and layers
 Our third result (Sec. 6) is an in-depth study of white-box MIAs using features of different types (output activations, gradients, and input activations of the last layer), extracted from different layers, as well as combined features extracted from multiple layers. 
 
-These results take a long time to run (about 2 weeks), since we run 10 repetitions of the attack in each setting, which amounts to training hundreds of shadow models and membership classifiers for every dataset. Thus, we recommend running Experiment 3 to obtain results on the standard CNN architecture trained on CIFAR10, which will give Tables 4, line 1 of Table 6, Table 7, and Figure 7 (Appendix). In Experiments 9-12 we provide instructions for the other datasets, marking them as OPTIONAL.
+These results take a long time to run (about 18 days), since we run 10 repetitions of the attack in each setting, which amounts to training hundreds of shadow models and membership classifiers for every dataset. Thus, we recommend running Experiment 3 to obtain results on the standard CNN architecture trained on CIFAR10, which will give Tables 4, line 1 of Table 6, Table 7, and Figure 7 (Appendix). In Experiments 9-12 we provide instructions for the other datasets, marking them as OPTIONAL.
 
 ### Experiments
 
