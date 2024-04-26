@@ -1,4 +1,4 @@
-The expected running time for all the experiments is 17 days 3h using only one GPU. 
+The expected running time for all the experiments is 18 days 2h using only one GPU. 
 
 By running the scripts in parallel on multiple GPUs, the running time can be reduced proportionally.
 
@@ -25,9 +25,9 @@ We provide below a breakdown of the estimated running time per experiment on a T
 2. Training of 24 models * 2234s/model ~= 15h
 3. Training of 6 models on varying dataset size ~= 1h15min
 
-**Experiment 7:** 
+**Experiment 7:** Total time ~ 1 day 16h
 1. Training of 24 models * 2550s/model ~= 17h
-2. Training of 24 models * /model ~=
+2. Training of 24 models * 3360s/model ~= 23h
    
 **Experiment 8:** Training of 16 models * 45min/model ~= 12h
 
@@ -43,7 +43,7 @@ We provide below a breakdown of the estimated running time per experiment on a T
 1. Training of 120 models * 5 min/model ~= 10h
 2. Running the MIAs ~= 1day 19h
 
-**Experiment 12:** Total time ~= 1day9h
+**Experiment 12:** Total time ~= 1 day 9h
 1. Training of 30 models * 19min/model ~= 9h30min
 2. Running the MIAs ~= 23h
 
