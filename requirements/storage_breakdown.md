@@ -1,4 +1,4 @@
-Breakdown of the `data` directory's (where datasets are downloaded) storage requirements:
+Breakdown of the `../data` directory's (where datasets are downloaded) storage requirements:
 
 ```
 $ du -h --max-depth=1 data
@@ -11,7 +11,7 @@ $ du -h --max-depth=1 data
 9.4G	data
 ```
 
-Breakdown of the `experiments` directory's (where experiments are saved) storage requirements:
+Breakdown of the `../experiments` directory's (where experiments are saved) storage requirements:
 ```
 $ du -h --max-depth=1 experiments
 34M     experiments/celeba
