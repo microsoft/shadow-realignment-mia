@@ -4,6 +4,7 @@ META_MODEL_SEED=505900
 
 GPU_ID=0
 
+# Run the attack against the CIFAR10 dataset.
 for R in {0..9}
 do
 	# Attack using shadow models trained with a different initialization.
@@ -18,7 +19,7 @@ do
         META_MODEL_SEED=$((META_MODEL_SEED+1))
 done
 
-
+# Run the attack against the Texas100 dataset.
 for R in {0..9}
 do
         # Attack using shadow models trained with a different initialization.
@@ -35,7 +36,7 @@ do
         META_MODEL_SEED=$((META_MODEL_SEED+1))
 done
 
-
+# Run the attack against the Purchase100 dataset.
 for R in {0..9}
 do
         # Attack using shadow models trained with a different initialization.
