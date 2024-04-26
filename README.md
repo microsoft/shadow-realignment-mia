@@ -54,9 +54,9 @@ Unzip `img_align_celeba.zip` into the directory. This should create a new sub-di
 - (OPTIONAL) TinyImageNet-200: Download the dataset from http://cs231n.stanford.edu/tiny-imagenet-200.zip into the `data` folder, then unzip it. This should create a new directory `data/tiny-imagenet-200`. _Note:_ The unzipping will take a long time as there are many files.
 
 ### Estimated Time and Storage Consumption
-It will take up to 4 weeks to run all the experiments using one GPU, however if the machine has multiple GPUs it is possible to run the scripts in parallel on different GPUs. In this case, the running time will go down proportionally.
+It will take up to 18 days to run all the experiments using one GPU. If the machine has multiple GPUs, it is possible to run the scripts in parallel on different GPUs, such that the running time will go down proportionally. We provide in `requirements/time_breakdown.md` a breakdown of the estimated running time for every experiment on one GPU.
 
-The expected storage requirement for the datasets and experiments is 30G. We provide in `storage_requirement_breakdown.md` a breakdown for the `data` and `experiments` directories. 
+The expected storage requirement for the datasets and experiment outputs is 30G. We provide in `requirements/storage_breakdown.md` a breakdown for the `data` and `experiments` directories. 
 
 ## Environment
 
