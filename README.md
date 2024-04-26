@@ -65,7 +65,7 @@ The expected storage requirement for the datasets and experiment outputs is 30G.
 Clone this repository.
 
 ```
-git clone git@github.com:microsoft/shadow-realignment-mia.git --branch v1.0
+git clone git@github.com:microsoft/shadow-realignment-mia.git --branch v2.0
 ```
 
 Run the commands below to create a conda environment and install all required packages, except for `torch` (which requires special treatment):
